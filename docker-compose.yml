@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - ./:/app
+    stdin_open: true
+    tty: true
+    networks:
+      - local
+
+networks:
+  local:
