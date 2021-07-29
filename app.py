@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from search import get_user_search_results
+from ticks import get_user_ticks
 
 logging.basicConfig()
 logger = logging.getLogger("APP")
@@ -29,6 +30,13 @@ def user_search():
     user_query = request.args.get("userQuery")
     results = get_user_search_results(user_query)
     return jsonify(results)
+
+
+@app.route("/userTicks")
+def user_ticks():
+    user = request.args.get("user")
+    ticks = get_user_ticks(user)
+    return jsonify(ticks)
 
 
 if __name__ == "__main__":
