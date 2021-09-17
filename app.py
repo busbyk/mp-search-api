@@ -1,10 +1,11 @@
 import logging
-from flask import Flask, jsonify, request
+from flask import Flask, json, jsonify, request
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from search import get_user_search_results
 from ticks import get_user_ticks
+from user import get_user
 
 logging.basicConfig()
 logger = logging.getLogger("APP")
@@ -37,6 +38,13 @@ def user_ticks():
     user = request.args.get("user")
     ticks = get_user_ticks(user)
     return jsonify(ticks)
+
+
+@app.route("/userInfo")
+def user_info():
+    userid_username = request.args.get("user")
+    user = get_user(userid_username)
+    return jsonify(user)
 
 
 @app.route("/ping")
